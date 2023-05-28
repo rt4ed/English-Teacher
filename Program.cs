@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Net;
 using TeacherEnglish;
+using TeacherEnglish.Entities;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
@@ -15,7 +17,21 @@ var options = optionsBuilder.UseNpgsql(connectionString).Options;
 
 using (ApplicationContext db = new ApplicationContext(options))
 {
-    
+    if (db.IrregularVerbs.Count() == 0)
+    {
+        var IrregularVerbsSite = new IrregularVerbsSite();
+        var table = IrregularVerbsSite.GetIrregularVerbs("http://begin-english.ru/study/irregular-verbs/");
+        foreach (var row in table)
+        {
+            var irregularVerb = new IrregularVerb();
+            irregularVerb.Infinitive = row[0];
+            irregularVerb.PastSimple = row[1];
+            irregularVerb.PastParticiple = row[2];
+            irregularVerb.Translation = row[3];
+            db.IrregularVerbs.Add(irregularVerb);
+            db.SaveChanges();
+        }
+    }
 }
 
 var client = new TelegramBotClient("5982459665:AAFhEyW6Fx0-fImk-2TU_hI91liq2cHSF-Q");

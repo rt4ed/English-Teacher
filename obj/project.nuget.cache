@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "IP6gpZKVzXQwWhtZxY+b+eiK4ptOmnXOATceHcgj7BE+sk64dlZWOUSKM53Gh+DJZxDVdMxDDNyF9QvCkzzftg==",
+  "dgSpecHash": "s/ANVDib5vn2KmxDuYuxEt/Hf5/KyAGWGv0mSB+T/V3+77zBZs3MhdrD2BF1/roZgwGjoWxVhGoUGlYGUMvYvA==",
   "success": true,
   "projectFilePath": "C:\\Users\\rt4ed\\source\\repos\\TeacherEnglish\\TeacherEnglish.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\rt4ed\\.nuget\\packages\\htmlagilitypack\\1.11.46\\htmlagilitypack.1.11.46.nupkg.sha512",
     "C:\\Users\\rt4ed\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\rt4ed\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.0-preview.3.23174.2\\microsoft.entityframeworkcore.8.0.0-preview.3.23174.2.nupkg.sha512",
     "C:\\Users\\rt4ed\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.0-preview.3.23174.2\\microsoft.entityframeworkcore.abstractions.8.0.0-preview.3.23174.2.nupkg.sha512",
