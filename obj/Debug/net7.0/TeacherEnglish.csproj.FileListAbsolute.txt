@@ -43,3 +43,5 @@ C:\Users\rt4ed\source\repos\TeacherEnglish\bin\Debug\net7.0\Microsoft.EntityFram
 C:\Users\rt4ed\source\repos\TeacherEnglish\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\rt4ed\source\repos\TeacherEnglish\bin\Debug\net7.0\Mono.TextTemplating.dll
 C:\Users\rt4ed\source\repos\TeacherEnglish\bin\Debug\net7.0\System.CodeDom.dll
+C:\Users\rt4ed\source\repos\TeacherEnglish\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\rt4ed\source\repos\TeacherEnglish\bin\Debug\net7.0\Telegram.Bot.dll

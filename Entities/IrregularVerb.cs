@@ -1,9 +1,7 @@
 ﻿namespace TeacherEnglish.Entities
 {
-    public class IrregularVerb
+    public class IrregularVerb : BaseEntity
     {
-        public int Id { get; set; }
-
         public string Infinitive { get; set; }
 
         public string PastSimple { get; set; }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TeacherEnglish;
@@ -11,9 +12,11 @@ using TeacherEnglish;
 namespace TeacherEnglish.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230528084058_AddEntity")]
+    partial class AddEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,25 +25,29 @@ namespace TeacherEnglish.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.HasSequence("BaseEntitySequence");
-
             modelBuilder.Entity("TeacherEnglish.Entities.BaseEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasDefaultValueSql("nextval('\"BaseEntitySequence\"')");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseSequence(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("character varying(13)");
+
                     b.HasKey("Id");
 
-                    b.ToTable((string)null);
+                    b.ToTable("BaseEntities");
 
-                    b.UseTpcMappingStrategy();
+                    b.HasDiscriminator<string>("Discriminator").HasValue("BaseEntity");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("TeacherEnglish.Entities.IrregularVerb", b =>
@@ -63,7 +70,7 @@ namespace TeacherEnglish.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.ToTable("IrregularVerbs");
+                    b.HasDiscriminator().HasValue("IrregularVerb");
                 });
 
             modelBuilder.Entity("TeacherEnglish.Entities.User", b =>
@@ -74,9 +81,10 @@ namespace TeacherEnglish.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.ToTable("Users");
+                    b.HasDiscriminator().HasValue("User");
                 });
 #pragma warning restore 612, 618
         }
