@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Net;
+using Microsoft.Extensions.DependencyInjection;
 using TeacherEnglish;
 using TeacherEnglish.Entities;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
+
+var services = new ServiceCollection()
+    .AddTransient<ILogService, SimpleLogService>();
 var builder = new ConfigurationBuilder();
 builder.SetBasePath(Directory.GetCurrentDirectory());
 builder.AddJsonFile("appsettings.json");
@@ -20,7 +23,8 @@ using (ApplicationContext db = new ApplicationContext(options))
     if (db.IrregularVerbs.Count() == 0)
     {
         var IrregularVerbsSite = new IrregularVerbsSite();
-        var table = IrregularVerbsSite.GetIrregularVerbs("http://begin-english.ru/study/irregular-verbs/");
+        string? url = null;
+        var table = IrregularVerbsSite.GetIrregularVerbs(url);
         foreach (var row in table)
         {
             var irregularVerb = new IrregularVerb();
@@ -40,10 +44,15 @@ Console.ReadLine();
 
 async Task Update(ITelegramBotClient botClient, Update update, CancellationToken token)
 {
-    var message = update.Message;
-    if (message.Text != null)
+    var user = new TeacherEnglish.Entities.User();
+    var message = update.Message;    
+    if (message != null)
     {
-
+        if (message.Text.ToLower().Contains("start"))
+        {
+            for (int i = 0; i < 5; i++)
+                await botClient.SendTextMessageAsync();
+        }
     }
 }
 
